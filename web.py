@@ -10,6 +10,7 @@ from nltk.tokenize import word_tokenize
 import string
 import numpy as np
 import pickle
+import re
 
 # Load model
 model = load_model('cnn_model.h5')
@@ -26,13 +27,23 @@ nltk.download('punkt')
 stop_words = set(stopwords.words('indonesian'))
 
 def preprocess_text(text):
-    # Lowercase
+    # Convert text to lowercase
     text = text.lower()
-    # Tokenize
-    words = word_tokenize(text)
-    # Remove punctuation and stopwords
-    words = [word for word in words if word.isalnum() and word not in stop_words]
-    return words
+
+    # Remove URLs
+    text = re.sub(r'http\S+|www\S+|https\S+', '', text, flags=re.MULTILINE)
+
+    # Remove email addresses
+    text = re.sub(r'\S+@\S+', '', text)
+
+    # Remove special characters, numbers, and punctuation
+    text = re.sub(r'\d+', '', text) # Remove digits
+    text = re.sub(r'[^\w\s]', '', text) # Remove punctuation
+
+    # Remove extra whitespace
+    text = re.sub(r'\s+', ' ', text).strip()
+
+    return text
 
 def prepare_input(text, tokenizer, max_len=100):
     # Tokenize and pad sequences
