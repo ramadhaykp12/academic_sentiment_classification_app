@@ -9,12 +9,14 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import string
 import numpy as np
+import pickle
 
 # Load model
 model = load_model('cnn_model.h5')
 
 # Inisialisasi tokenizer yang sama digunakan saat melatih model
-tokenizer = Tokenizer(num_words=10000)
+with open(tokenizer_file, 'rb') as file:
+    tokenizer = pickle.load('tokenizer_CNN.pkl')
 
 # Preprocessing functions
 nltk.download('stopwords')
