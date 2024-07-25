@@ -14,9 +14,11 @@ import pickle
 # Load model
 model = load_model('cnn_model.h5')
 
+
 # Inisialisasi tokenizer yang sama digunakan saat melatih model
-with open(tokenizer_file, 'rb') as file:
-    tokenizer = pickle.load('tokenizer_CNN.pkl')
+tokenizer_file = 'tokenizer_CNN.pkl'
+with open(tokenizer_file, 'rb') as handle:
+    tokenizer = pickle.load(handle)
 
 # Preprocessing functions
 nltk.download('stopwords')
