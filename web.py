@@ -9,7 +9,6 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import string
 import numpy as np
-import json
 
 # Load model
 model = load_model('cnn_model.h5')
