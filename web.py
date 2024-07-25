@@ -57,8 +57,9 @@ st.title('Aplikasi Klasifikasi Teks')
 input_text = st.text_area('Masukkan teks untuk klasifikasi:')
 if st.button('Klasifikasi'):
     if input_text:
+        text_data = [input_text]
         # Preprocess text
-        preprocessed_text = preprocess_text(input_text)
+        preprocessed_text = [preprocess_text(text) for text in text_data]
         # Prepare input for model
         input_data = prepare_input(preprocessed_text, tokenizer)
         # Predict
