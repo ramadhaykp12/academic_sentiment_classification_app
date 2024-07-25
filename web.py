@@ -27,23 +27,13 @@ nltk.download('punkt')
 stop_words = set(stopwords.words('indonesian'))
 
 def preprocess_text(text):
-    # Convert text to lowercase
+    # Lowercase
     text = text.lower()
-
-    # Remove URLs
-    text = re.sub(r'http\S+|www\S+|https\S+', '', text, flags=re.MULTILINE)
-
-    # Remove email addresses
-    text = re.sub(r'\S+@\S+', '', text)
-
-    # Remove special characters, numbers, and punctuation
-    text = re.sub(r'\d+', '', text) # Remove digits
-    text = re.sub(r'[^\w\s]', '', text) # Remove punctuation
-
-    # Remove extra whitespace
-    text = re.sub(r'\s+', ' ', text).strip()
-
-    return text
+    # Tokenize
+    words = word_tokenize(text)
+    # Remove punctuation and stopwords
+    words = [word for word in words if word.isalnum() and word not in stop_words]
+    return words
 
 def prepare_input(text, tokenizer, max_len=100):
     # Tokenize and pad sequences
@@ -57,9 +47,8 @@ st.title('Aplikasi Klasifikasi Teks')
 input_text = st.text_area('Masukkan teks untuk klasifikasi:')
 if st.button('Klasifikasi'):
     if input_text:
-        text_data = [input_text]
         # Preprocess text
-        preprocessed_text = [preprocess_text(text) for text in text_data]
+        preprocessed_text = preprocess_text(input_text)
         # Prepare input for model
         input_data = prepare_input(preprocessed_text, tokenizer)
         # Predict
