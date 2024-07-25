@@ -10,6 +10,7 @@ from nltk.tokenize import word_tokenize
 import string
 import numpy as np
 import pickle
+import json
 import re
 
 # Load model
@@ -17,9 +18,10 @@ model = load_model('cnn_model.h5')
 
 
 # Inisialisasi tokenizer yang sama digunakan saat melatih model
-tokenizer_file = 'tokenizer_CNN.pkl'
+tokenizer_file = 'tokenizer.json'
 with open(tokenizer_file, 'rb') as handle:
-    tokenizer = pickle.load(handle)
+    data = json.load(handle)
+    tokenizer = tokenizer_from_json(data)
 
 # Preprocessing functions
 nltk.download('stopwords')
