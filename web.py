@@ -25,11 +25,11 @@ st.title('Aplikasi Klasifikasi Teks')
 input_text = st.text_input('Masukkan teks untuk klasifikasi:')
 if st.button('Klasifikasi'):
     if input_text:
-    sequences = tokenizer.texts_to_sequences([input_text])
-    padded = pad_sequences(sequences, maxlen=100)
-    prediction = model.predict(padded)
+        sequences = tokenizer.texts_to_sequences([input_text])
+        padded = pad_sequences(sequences, maxlen=100)
+        prediction = model.predict(padded)
 
-    sentiment_labels = ['Negative', 'Neutral', 'Positive']
-    predicted_label = sentiment_labels[np.argmax(prediction)]
+        sentiment_labels = ['Negative', 'Neutral', 'Positive']
+        predicted_label = sentiment_labels[np.argmax(prediction)]
 
-    st.write(f"Predicted Sentiment: **{predicted_label}**")
+        st.write(f"Predicted Sentiment: **{predicted_label}**")
