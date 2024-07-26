@@ -13,6 +13,7 @@ import numpy as np
 import json
 import re
 
+model = load_model('cnn_model.h5')
 # Inisialisasi tokenizer yang sama digunakan saat melatih model
 with open('tokenizer.json', 'r') as f:
     tokenizer_json = json.load(f)
@@ -37,22 +38,13 @@ def prepare_input(text, tokenizer, max_len=100):
     sequences = tokenizer.texts_to_sequences([text])
     padded_sequences = pad_sequences(sequences, maxlen=max_len)
     return padded_sequences
-
-@st.cache(allow_output_mutation=True)
-def Load_model():
-    # Load model
-    model = load_model('cnn_model.h5')
-    session = K.get_session()
-    return model, session
     
 # Streamlit app
 st.title('Aplikasi Klasifikasi Teks')
 
 input_text = st.text_input('Masukkan teks untuk klasifikasi:')
-model, session = Load_model()
 if st.button('Klasifikasi'):
     if input_text:
-        K.set_session(session)
         # Preprocess text
         preprocessed_text = preprocess_text(input_text)
         # Prepare input for model
