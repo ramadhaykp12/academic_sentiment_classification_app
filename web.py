@@ -37,6 +37,6 @@ if st.button('Klasifikasi'):
         # Predict
         prediction = model.predict(input_data)
         # Display result
-        st.write('Prediksi:', np.argmax(prediction))
+        st.write('Prediksi:', prediction)
     else:
         st.write('Masukkan teks untuk klasifikasi.')
