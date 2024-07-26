@@ -15,10 +15,9 @@ import json
 import re
 
 # Inisialisasi tokenizer yang sama digunakan saat melatih model
-tokenizer_file = 'tokenizer.json'
+tokenizer_file = 'tokenizer_CNN.pkl'
 with open(tokenizer_file, 'rb') as handle:
-    data = json.load(handle)
-    tokenizer = tokenizer_from_json(data)
+    tokenizer = pickle.load(handle)
 
 # Preprocessing functions
 nltk.download('stopwords')
