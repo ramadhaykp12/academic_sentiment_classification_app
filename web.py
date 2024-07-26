@@ -61,7 +61,16 @@ if st.button('Klasifikasi'):
         input_data = prepare_input(preprocessed_text, tokenizer)
         # Predict
         prediction = model.predict(input_data)
+        prediction_prob_negative = prediction[0][0]
+        prediction_prob_neutral = prediction[0][1]
+        prediction_prob_positive= prediction[0][2]
+        prediction_class = prediction.argmax(axis=-1)[0]
+        print(prediction.argmax())
         # Display result
-        st.write('Prediksi:', np.argmax(prediction))
-    else:
-        st.write('Masukkan teks untuk klasifikasi.')
+        st.header('Prediction using LSTM model')
+        if prediction_class == 0:
+          st.warning('Thread has negative sentiment')
+        if prediction_class == 1:
+          st.success('Thread has neutral sentiment')
+        if prediction_class==2:
+          st.success('Thread has positive sentiment')
