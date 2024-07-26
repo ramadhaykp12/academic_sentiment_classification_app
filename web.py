@@ -4,6 +4,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 #from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.text import tokenizer_from_json
+from keras import backend as K
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -12,10 +13,6 @@ import numpy as np
 import pickle
 import json
 import re
-
-# Load model
-model = load_model('cnn_model.h5')
-
 
 # Inisialisasi tokenizer yang sama digunakan saat melatih model
 tokenizer_file = 'tokenizer.json'
@@ -43,12 +40,21 @@ def prepare_input(text, tokenizer, max_len=100):
     padded_sequences = pad_sequences(sequences, maxlen=max_len)
     return padded_sequences
 
+@st.cache(allow_output_mutation=True)
+def Load_model():
+    # Load model
+    model = load_model('cnn_model.h5')
+    session = K.get_session()
+    return model, session
+    
 # Streamlit app
 st.title('Aplikasi Klasifikasi Teks')
 
 input_text = st.text_area('Masukkan teks untuk klasifikasi:')
+model, session = Load_model()
 if st.button('Klasifikasi'):
     if input_text:
+        K.set_session(session)
         # Preprocess text
         preprocessed_text = preprocess_text(input_text)
         # Prepare input for model
