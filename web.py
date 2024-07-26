@@ -49,7 +49,7 @@ def Load_model():
 # Streamlit app
 st.title('Aplikasi Klasifikasi Teks')
 
-input_text = st.text_area('Masukkan teks untuk klasifikasi:')
+input_text = st.text_input('Masukkan teks untuk klasifikasi:')
 model, session = Load_model()
 if st.button('Klasifikasi'):
     if input_text:
