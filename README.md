@@ -1,1 +1,1 @@
-# academic_sentiment_classification_app
+# Academic Survey Sentiment Classification
