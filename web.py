@@ -10,14 +10,13 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import string
 import numpy as np
-import pickle
 import json
 import re
 
 # Inisialisasi tokenizer yang sama digunakan saat melatih model
-tokenizer_file = 'tokenizer_CNN.pkl'
-with open(tokenizer_file, 'rb') as handle:
-    tokenizer = pickle.load(handle)
+with open('tokenizer.json', 'r') as f:
+    tokenizer_json = json.load(f)
+    tokenizer = tokenizer_from_json(tokenizer_json)
 
 # Preprocessing functions
 nltk.download('stopwords')
