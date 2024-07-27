@@ -38,5 +38,11 @@ if st.button('Klasifikasi'):
         prediction = model.predict(input_data)
         # Display result
         st.write('Prediksi:', prediction)
+        if np.argmax(prediction) == 0:
+            st.write("Negatif")
+        elif np.argmax(prediction) == 1:
+            st.write("Netral")
+        elif np.argmax(prediction) == 2:
+            st.write("Positif")
     else:
         st.write('Masukkan teks untuk klasifikasi.')
