@@ -27,7 +27,7 @@ def prepare_input(text, tokenizer, max_len=100):
     return padded_sequences
 
 # Streamlit app
-st.title('Aplikasi Klasifikasi Teks')
+st.title('Aplikasi Klasifikasi Teks untuk Evaluasi PBM')
 
 input_text = st.text_area('Masukkan teks untuk klasifikasi:')
 if st.button('Klasifikasi'):
